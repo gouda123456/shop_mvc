@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using shop_mvc.Models
+
+@inject SignInManager<iuser> SignInManager
+@inject UserManager<iuser> UserManager
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        <a id="manage" class="nav-link text-dark" asp-area="identity" asp-page="/account/manage/index" title="manage">hello @UserManager.GetUserName(User).Split("@")[0]!</a>
+    </li>
+    <li class="nav-item">
+        <form id="logoutform" class="form-inline" asp-area="identity" asp-page="/account/logout" asp-route-returnurl="@Url.Action("index", "home", new { area = "" })">
+            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
+}
+</ul>

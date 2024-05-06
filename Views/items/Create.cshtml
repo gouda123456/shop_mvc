@@ -1,0 +1,73 @@
+﻿
+
+@model shop_mvc.Models.item
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>item</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="price" class="control-label"></label>
+                <input asp-for="price" class="form-control" />
+                <span asp-validation-for="price" class="text-danger"></span>
+            </div>
+            @* <div class="form-group">
+                <label asp-for="contity" class="control-label"></label>
+                <input asp-for="contity" class="form-control" />
+                <span asp-validation-for="contity" class="text-danger"></span>
+            </div> *@
+            
+            <div class="form-group">
+                <label  class="control-label"></label>
+
+
+                <img id="myImg" style="height:200px" alt="Alternate Text" />
+                
+                <input type="file" asp-for="file" onchange="document.getElementById('myImg').src = window.URL.createObjectURL(event.target.files[0])" class="form-control" />
+                <span asp-validation-for="file"  class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    function ch_img(event) 
+    {
+        document.getElementById('myImg').src = window.URL.createObjectURL(event.target.files[0]);
+    }
+</script>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        var loadFile = function (event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var myImg = document.getElementById('myImg');
+                myImg.src = reader.result;
+            }
+
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+}
+
